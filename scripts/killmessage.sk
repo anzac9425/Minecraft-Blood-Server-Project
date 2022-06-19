@@ -1,0 +1,12 @@
+on death:
+	set {_dis} to distance between victim and attacker
+	set {_at} to name of attacker's tool
+	if {_at} is not set:
+		set {_at} to "hand"
+	set {_vic} to name of victim
+	set {_atta} to name of attacker
+	if victim's name is "&c훈련용 봇":
+		send title "&c%{_vic}% %{_at}%" with subtitle "%{_dis}%m" to attacker for 1 seconds
+	else if {_vic} is set:
+		broadcast "&c%{_atta}% %{_at}% &c%{_vic}%"
+		send title "&c%{_vic}% %{_at}%" with subtitle "%{_dis}%m" to attacker for 1 seconds

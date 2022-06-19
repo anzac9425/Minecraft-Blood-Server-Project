@@ -1,0 +1,113 @@
+on rightclick with stick:
+	if name of player's tool is "&eM16A4":
+		if {%player%.reloading} is not set:
+			set {%player%.reloading} to "false"
+		if {%player%.reloading} is "false":
+			if {%player%.m16a4.mode} is not set:
+				set {%player%.m16a4.mode} to "semi"
+			if {%player%.m16a4} is not 0:
+				if {%player%.m16a4.mode} is "semi":
+					if {%player%.m16a4semi} is 0:
+						shoot an arrow at speed 20
+						play sound "entity.zombie.attack_iron_door" with volume 2 and pitch 1 at player's location
+						subtract 1 from {%player%.m16a4}
+						send action bar "%{%player%.m16a4}% / 30 %{%player%.m16a4.mode}%" to player
+				else if {%player%.m16a4.mode} is "auto":
+					if {%player%.m16a4} < 3:
+						if {%player%.m16a4} is 1:
+							shoot an arrow at speed 20
+							play sound "entity.zombie.attack_iron_door" with volume 2 and pitch 1 at player's location
+							subtract 1 from {%player%.m16a4}
+							send action bar "%{%player%.m16a4}% / 30 %{%player%.m16a4.mode}%" to player
+						if {%player%.m16a4} is 2:
+							loop 2 times:
+								shoot an arrow at speed 20
+								play sound "entity.zombie.attack_iron_door" with volume 2 and pitch 1 at player's location
+								subtract 1 from {%player%.m16a4}
+								send action bar "%{%player%.m16a4}% / 30 %{%player%.m16a4.mode}%" to player
+								wait 2 ticks
+					else if {%player%.m16a4} >= 3:
+						loop 3 times:
+							shoot an arrow at speed 20
+							play sound "entity.zombie.attack_iron_door" with volume 2 and pitch 1 at player's location
+							subtract 1 from {%player%.m16a4}
+							send action bar "%{%player%.m16a4}% / 30 %{%player%.m16a4.mode}%" to player
+							wait 2 ticks
+				else if {%player%.m16a4.mode} is "burst":
+					if {%player%.cooltime} is not set:
+						set {%player%.cooltime} to 0
+					if {%player%.cooltime} is 0:
+						if {%player%.m16a4} < 3:
+							if {%player%.m16a4} is 1:
+								shoot an arrow at speed 20
+								play sound "entity.zombie.attack_iron_door" with volume 2 and pitch 1 at player's location
+								subtract 1 from {%player%.m16a4}
+								send action bar "%{%player%.m16a4}% / 30 %{%player%.m16a4.mode}%" to player
+							else if {%player%.m16a4} is 2:
+								loop 2 times:
+									shoot an arrow at speed 20
+									play sound "entity.zombie.attack_iron_door" with volume 2 and pitch 1 at player's location
+									subtract 1 from {%player%.m16a4}
+									send action bar "%{%player%.m16a4}% / 30 %{%player%.m16a4.mode}%" to player
+									wait 1 tick
+							set {%player%.cooltime} to 4
+							while {%player%.cooltime} is not 0:
+								subtract 1 from {%player%.cooltime}
+								wait 1 tick
+						else if {%player%.m16a4} >= 3:
+							loop 3 times:
+								shoot an arrow at speed 20
+								play sound "entity.zombie.attack_iron_door" with volume 2 and pitch 1 at player's location
+								subtract 1 from {%player%.m16a4}
+								send action bar "%{%player%.m16a4}% / 30 %{%player%.m16a4.mode}%" to player
+								wait 1 ticks
+							set {%player%.cooltime} to 4
+							while {%player%.cooltime} is not 0:
+								subtract 1 from {%player%.cooltime}
+								wait 1 tick
+			else if {%player%.m16a4} <= 0:
+				if {%player%.reloading} is not set:
+					set {%player%.reloading} to "false"
+				if {%player%.reloading} is "false":
+					set {%player%.reloading} to "true"
+					send action bar "Reloading" to player
+					wait 3 seconds
+					set {%player%.m16a4} to 30
+					send action bar "%{%player%.m16a4}% / 30 %{%player%.m16a4.mode}%" to player
+					set {%player%.reloading} to "false"
+
+on rightclick with stick:
+	if name of player's tool is "&eM16A4":
+		if {%player%.m16a4semi} is not set:
+			set {%player%.m16a4semi} to 0
+		add 3 to {%player%.m16a4semi}
+		loop 3 times:
+			wait 2 ticks
+			subtract 1 from {%player%.m16a4semi}
+
+on swap hand item:
+	cancel event
+	if name of player's tool is "&eM16A4":
+		if {%player%.m16a4.mode} is "semi":
+			set {%player%.m16a4.mode} to "auto"
+			send action bar "%{%player%.m16a4}% / 30 %{%player%.m16a4.mode}%" to player
+		else if {%player%.m16a4.mode} is "auto":
+			set {%player%.m16a4.mode} to "burst"
+			send action bar "%{%player%.m16a4}% / 30 %{%player%.m16a4.mode}%" to player
+		else if {%player%.m16a4.mode} is "burst":
+			set {%player%.m16a4.mode} to "semi"
+			send action bar "%{%player%.m16a4}% / 30 %{%player%.m16a4.mode}%" to player
+
+on drop stick:
+	cancel event
+	wait a tick
+	if player's tool's name is "&eM16A4":
+		if {%player%.reloading} is not set:
+			set {%player%.reloading} to "false"
+		if {%player%.reloading} is "false":
+			set {%player%.reloading} to "true"
+			send action bar "Reloading" to player
+			wait 3 seconds
+			set {%player%.m16a4} to 30
+			send action bar "%{%player%.m16a4}% / 30 %{%player%.m16a4.mode}%" to player
+			set {%player%.reloading} to "false"

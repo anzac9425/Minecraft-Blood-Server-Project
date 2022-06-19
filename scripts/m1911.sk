@@ -1,0 +1,43 @@
+on rightclick with stick:
+	if name of player's tool is "&eM1911":
+		if {%player%.reloading} is not set:
+			set {%player%.reloading} to "false"
+		if {%player%.reloading} is "false":
+			if {%player%.cooltime} is 0:
+				if {%player%.m1911} is not 0:
+					shoot an arrow at speed 15
+					set {%player%.cooltime} to 0.3
+					subtract 1 from {%player%.m1911}
+					send action bar "%{%player%.m1911}% / 7 semi" to player
+					play sound "entity.zombie.attack_iron_door" with volume 2 and pitch 1 at player's location
+					while {%player%.cooltime} is not 0:
+						subtract 0.1 from {%player%.cooltime}
+						wait 2 ticks
+				else if {%player%.m1911} is 0:
+					if {%player%.reloading} is not set:
+						set {%player%.reloading} to "false"
+					if {%player%.reloading} is "false":
+						set {%player%.reloading} to "true"
+						send action bar "Reloading" to player
+						wait 2 seconds
+						set {%player%.m1911} to 7
+						send action bar "%{%player%.m1911}% / 7 semi" to player
+						set {%player%.reloading} to "false"
+				if {%player%.m1911} < 0:
+					set {%player%.m1911} to 7
+			if {%player%.cooltime} is not set:
+				set {%player%.cooltime} to 0
+
+on drop stick:
+	cancel event
+	wait a tick
+	if player's tool's name is "&eM1911":
+		if {%player%.reloading} is not set:
+			set {%player%.reloading} to "false"
+		if {%player%.reloading} is "false":
+			set {%player%.reloading} to "true"
+			send action bar "Reloading" to player
+			wait 2 seconds
+			set {%player%.m1911} to 7
+			send action bar "%{%player%.m1911}% / 7 semi" to player
+			set {%player%.reloading} to "false"

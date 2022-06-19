@@ -1,0 +1,6 @@
+on chat:
+	if {채팅차단} is "true":
+		cancel event
+		message "&c채팅 차단됨"
+	if {채팅차단} is "false":
+		set chat format to "&e[User] &7<%player%> &7%message%"

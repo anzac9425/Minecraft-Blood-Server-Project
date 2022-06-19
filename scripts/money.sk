@@ -1,0 +1,35 @@
+command /돈 [<string>] [<offlineplayer>] [<number>]:
+	trigger:
+		if arg-1 is "송금":
+			if arg-2 is not set:
+				message "&c송금할 플레이어를 지정해 주세요"
+			else if arg-2 is set:
+				if arg-3 is not set:
+					message "&c송금할 금액을 지정해 주세요"
+				else if arg-3 is set:
+					subtract arg-3 from {money.%player%}
+					add arg-3 to {money.%arg-2%}
+		if arg-1 is "확인":
+			if arg-2 is not set:
+				message "&a%player%님의 현재 돈은 %{money.%player%}%원 입니다."
+			if arg-2 is set:
+				message "&a%arg-2%님의 현재 돈은 %{money.%player%}%원 입니다."
+		if arg-1 is "도움말":
+			message "%nl%/돈 송금 <player> <number>"
+			message "/돈 확인"
+			message "/돈 확인 <player>%nl%"
+			if player is op:
+				message "op 명령어"
+				message "/돈 설정 <player> <number>"
+				message "/돈 추가 <player> <number>"
+				message "/돈 제거 <player> <number>%nl%"
+		else if arg-1 is not set:
+			message "%nl%/돈 송금 <player> <number>"
+			message "/돈 확인"
+			message "/돈 확인 <player>%nl%"
+			if player is op:
+				message "op 명령어"
+				message "/돈 설정 <player> <number>"
+				message "/돈 추가 <player> <number>"
+				message "/돈 제거 <player> <number>%nl%"
+			

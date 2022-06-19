@@ -1,0 +1,50 @@
+on rightclick with stick:
+	if name of player's tool is "&eM249":
+		if {%player%.reloading} is not set:
+			set {%player%.reloading} to "false"
+		if {%player%.reloading} is "false":
+			if {%player%.m249} is not 0:
+				if {%player%.m249} < 3:
+					if {%player%.m249} is 1:
+						shoot an arrow at speed 10
+						play sound "entity.zombie.attack_iron_door" with volume 2 and pitch 1 at player's location
+						subtract 1 from {%player%.m249}
+						send action bar "%{%player%.m249}% / 200" to player
+					if {%player%.m249} is 2:
+						loop 2 times:
+							shoot an arrow at speed 10
+							play sound "entity.zombie.attack_iron_door" with volume 2 and pitch 1 at player's location
+							subtract 1 from {%player%.m249}
+							send action bar "%{%player%.m249}% / 200 auto" to player
+							wait 2 ticks
+				else if {%player%.m249} >= 3:
+					loop 3 times:
+						shoot an arrow at speed 10
+						play sound "entity.zombie.attack_iron_door" with volume 2 and pitch 1 at player's location
+						subtract 1 from {%player%.m249}
+						send action bar "%{%player%.m249}% / 200 auto" to player
+						wait 2 ticks
+			else if {%player%.m249} <= 0:
+				if {%player%.reloading} is not set:
+					set {%player%.reloading} to "false"
+				if {%player%.reloading} is "false":
+					set {%player%.reloading} to "true"
+					send action bar "Reloading" to player
+					wait 7 seconds
+					set {%player%.m249} to 200
+					send action bar "%{%player%.m249}% / 200 auto" to player
+					set {%player%.reloading} to "false"
+
+on drop stick:
+	cancel event
+	wait a tick
+	if player's tool's name is "&eM249":
+		if {%player%.reloading} is not set:
+			set {%player%.reloading} to "false"
+		if {%player%.reloading} is "false":
+			set {%player%.reloading} to "true"
+			send action bar "Reloading" to player
+			wait 7 seconds
+			set {%player%.m249} to 200
+			send action bar "%{%player%.m249}% / 200 auto" to player
+			set {%player%.reloading} to "false"

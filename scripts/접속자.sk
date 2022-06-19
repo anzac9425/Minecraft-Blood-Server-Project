@@ -1,0 +1,28 @@
+on join:
+	if {동접} is not set:
+		set {동접} to 0
+	if {최고동접} is not set:
+		set {최고동접} to 0
+	add 1 to {동접}
+	if {동접} > {최고동접}:
+		send title "&a최고동접 달성!" with subtitle "&e현재 동시접속자는 %{동접}%명 입니다." for 2 seconds
+		set {최고동접} to {동접}
+
+on quit:
+	subtract 1 from {동접}
+
+command /동접확인:
+	trigger:
+		message "%{동접}%명"
+
+command /최고동접확인:
+	trigger:
+		message "%{최고동접}%명"
+
+command /동접설정 [<number>]:
+	trigger:
+		set {동접} to arg-1
+
+command /최고동접설정 [<number>]:
+	trigger:
+		set {최고동접} to arg-1

@@ -1,0 +1,30 @@
+command /cctvlocset [<string>]:
+	trigger:
+		if arg-1 is not set:
+			message "사용법: /cctvlocset <cctv이름>"
+		else:
+			set {cctvloc%arg-1%.%player%} to player's location
+			message "%{cctvloc%arg-1%.%player%}%로 설정됨"
+
+command /cctvuse [<string>]:
+	trigger:
+		if arg-1 is not set:
+			message "사용법: /cctvuse <cctv이름>"
+		else:
+			set {cctvexit.%player%} to "false"
+			set {cctv.playerloc.%player%} to player's location
+			set {cctv.playergm.%player%} to player's gamemode
+			set the player's gamemode to spectator
+			while {cctvexit.%player%} is not "true":
+				teleport the player to {cctvloc%arg-1%.%player%}
+				wait a tick
+
+command /cctvexit:
+	trigger:
+		set {cctvexit.%player%} to "true"
+		teleport the player to {cctv.playerloc.%player%}
+		set player's gamemode to {cctv.playergm.%player%}
+
+command /cctvhelp:
+	trigger:
+		message "/cctvlocset%nl%/cctvuse%nl%/cctvexit"

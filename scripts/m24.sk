@@ -1,0 +1,54 @@
+on rightclick with stick:
+	if name of player's tool is "&eM24":
+		if {%player%.reloading} is not set:
+			set {%player%.reloading} to "false"
+		if {%player%.reloading} is "false":
+			if {%player%.cooltime} is 0:
+				if {%player%.m24} is not 0:
+					shoot an arrow at speed 28
+					set {%player%.cooltime} to 0.3
+					subtract 1 from {%player%.m24}
+					send action bar "%{%player%.m24}% / 7 semi" to player
+					play sound "entity.zombie.attack_iron_door" with volume 2 and pitch 1 at player's location
+					while {%player%.cooltime} is not 0:
+						subtract 0.01 from {%player%.cooltime}
+						wait 2 ticks
+				else if {%player%.m24} is 0:
+					if {%player%.reloading} is not set:
+						set {%player%.reloading} to "false"
+					if {%player%.reloading} is "false":
+						set {%player%.reloading} to "true"
+						send action bar "Reloading" to player
+						wait 2 seconds
+						set {%player%.m24} to 7
+						send action bar "%{%player%.m24}% / 7 semi" to player
+						set {%player%.reloading} to "false"
+				if {%player%.m24} < 0:
+					set {%player%.m24} to 7
+			if {%player%.cooltime} is not set:
+				set {%player%.cooltime} to 0
+
+on drop stick:
+	cancel event
+	wait a tick
+	if player's tool's name is "&eM24":
+		if {%player%.reloading} is not set:
+			set {%player%.reloading} to "false"
+		if {%player%.reloading} is "false":
+			set {%player%.reloading} to "true"
+			send action bar "Reloading" to player
+			wait 2 seconds
+			set {%player%.m24} to 7
+			send action bar "%{%player%.m24}% / 7 semi" to player
+			set {%player%.reloading} to "false"
+
+on leftclick with stick:
+	if name of player's tool is "&eM24":
+		if {%player%.m24.scopemode} is not set:
+			set {%player%.m24.scopemode} to "false"
+		if {%player%.m24.scopemode} is "false":
+			apply slowness 10 to the player for 10000000 seconds
+			set {%player%.m24.scopemode} to "true"
+		else if {%player%.m24.scopemode} is "true":
+			remove slowness from the player
+			set {%player%.m24.scopemode} to "false"

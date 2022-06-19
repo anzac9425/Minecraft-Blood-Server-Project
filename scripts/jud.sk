@@ -1,0 +1,19 @@
+on projectile hit:
+	event-projectile is arrow
+	
+on damage:
+	if victim is player:
+		set {_head1} to y coordinate of projectile
+		set {_head2} to y coordinate of victim
+		set {_n.%attacker%} to "몸샷"
+		if {_head1}-{_head2} is bigger than 1.5:
+			set {_n.%attacker%} to "헤드샷"
+		if {_n.%attacker%} is "헤드샷":
+			if name of attacker's tool is "&eM11911":
+				damage victim by 3
+			if name of attacker's tool is "&eM16A4":
+				damage victim by 5
+			if name of attacker's tool is "&eM24":
+				damage victim by 40
+			if name of attacker's tool is "&eM24":
+				damage victim by 2

@@ -1,0 +1,10 @@
+on join:
+	if {rank.%player%} is not set:
+		set {rank.%player%} to "air"
+
+command /rank변경 [<string>] [<offlineplayer>]:
+	trigger:
+		if player is op:
+			set {rank.%arg-2%} to arg-1
+		else:
+			message "&c권한이 없습니다."

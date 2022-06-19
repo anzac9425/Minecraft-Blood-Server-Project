@@ -1,0 +1,13 @@
+command /servershutdown [<string>]:
+	trigger:
+		if player is op:
+			set {_ssd.time} to 5
+			loop 5 times:
+				broadcast "&a서버가 %{_ssd.time}%초 뒤에 종료됩니다"
+				subtract 1 from {_ssd.time}
+				wait a second
+			execute console command "/kick @a %arg-1%"
+			wait a tick
+			execute console command "/stop"
+		else if player is not op:
+			message "&c권한이 없습니다"

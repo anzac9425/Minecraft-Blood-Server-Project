@@ -1,0 +1,6 @@
+on join:
+	set join message to "&a+ &7%player%님이 서버에 접속하셨습니다"
+	wait 5 ticks
+	broadcast "&e현재 동시접속자는 &a%{동접}%명 &e입니다."
+on quit:
+	set quit message to "&c- &7%player%님이 서버에서 퇴장하셨습니다"
